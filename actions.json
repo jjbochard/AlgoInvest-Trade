@@ -1,0 +1,104 @@
+{
+    "actions": [
+        {
+            "action_number": 1,
+            "cost_per_action": 20,
+            "2year_benefit": 0.05
+        },
+        {
+            "action_number": 2,
+            "cost_per_action": 30,
+            "2year_benefit": 0.10
+        },
+        {
+            "action_number": 3,
+            "cost_per_action": 50,
+            "2year_benefit": 0.15
+        },
+        {
+            "action_number": 4,
+            "cost_per_action": 70,
+            "2year_benefit": 0.20
+        },
+        {
+            "action_number": 5,
+            "cost_per_action": 60,
+            "2year_benefit": 0.17
+        },
+        {
+            "action_number": 6,
+            "cost_per_action": 80,
+            "2year_benefit": 0.25
+        },
+        {
+            "action_number": 7,
+            "cost_per_action": 22,
+            "2year_benefit": 0.07
+        },
+        {
+            "action_number": 8,
+            "cost_per_action": 26,
+            "2year_benefit": 0.11
+        },
+        {
+            "action_number": 9,
+            "cost_per_action": 48,
+            "2year_benefit": 0.13
+        },
+        {
+            "action_number": 10,
+            "cost_per_action": 34,
+            "2year_benefit": 0.27
+        },
+        {
+            "action_number": 11,
+            "cost_per_action": 42,
+            "2year_benefit": 0.17
+        },
+        {
+            "action_number": 12,
+            "cost_per_action": 110,
+            "2year_benefit": 0.09
+        },
+        {
+            "action_number": 13,
+            "cost_per_action": 38,
+            "2year_benefit": 0.23
+        },
+        {
+            "action_number": 14,
+            "cost_per_action": 14,
+            "2year_benefit": 0.01
+        },
+        {
+            "action_number": 15,
+            "cost_per_action": 18,
+            "2year_benefit": 0.03
+        },
+        {
+            "action_number": 16,
+            "cost_per_action": 8,
+            "2year_benefit": 0.08
+        },
+        {
+            "action_number": 17,
+            "cost_per_action": 4,
+            "2year_benefit": 0.12
+        },
+        {
+            "action_number": 18,
+            "cost_per_action": 10,
+            "2year_benefit": 0.14
+        },
+        {
+            "action_number": 19,
+            "cost_per_action": 24,
+            "2year_benefit": 0.21
+        },
+        {
+            "action_number": 20,
+            "cost_per_action": 114,
+            "2year_benefit": 0.18
+        }
+    ]
+}
