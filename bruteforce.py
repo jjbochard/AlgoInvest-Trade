@@ -1,67 +1,5 @@
-import json
+from utils import action_cost, action_benefit, action_number, print_time
 import time
-
-
-def print_time(raw_interval):
-    """
-    Calculate and print the time in minutes and seconds from a time in seconds
-    Args:
-        raw_interval (int): A time in seconds
-    """
-    interval_in_min = raw_interval / 60
-    extra_sec = round(interval_in_min % 1, 2)
-    interval_in_sec = round(extra_sec * 60)
-    print(
-        "The brute force solution has been found in "
-        + str(round(interval_in_min))
-        + " minutes et "
-        + str(interval_in_sec)
-        + " seconds."
-    )
-
-
-def action_benefit(action):
-    """
-    Return the value of the cost * 2years_benefit of a choosen action from
-    actions.json
-    Args:
-        action (int): n represent action_number n+1
-    """
-    with open(
-        "actions.json",
-    ) as f:
-        data = json.load(f)
-        return (
-            data["actions"][action]["cost_per_action"]
-            * data["actions"][action]["2year_benefit"]
-        )
-
-
-def action_cost(action):
-    """
-    Return the cost of a choosen action from actions.json
-    Args:
-        action (int): n represent action_number n+1
-    """
-    with open(
-        "actions.json",
-    ) as f:
-        data = json.load(f)
-        return data["actions"][action]["cost_per_action"]
-
-
-def action_number(action):
-    """
-    Return the number of a choosen action from actions.json
-    Args:
-        action (int): n represent action_number n+1
-    """
-    with open(
-        "actions.json",
-    ) as f:
-        data = json.load(f)
-        return data["actions"][action]["action_number"]
-
 
 def get_binary_combination(num_item):
     """
@@ -71,6 +9,7 @@ def get_binary_combination(num_item):
     """
     number_possibilities = [i for i in range(2 ** num_item)]
     table_binary = [bin(i)[2:] for i in number_possibilities]
+    print(table_binary)
     return ["0" * (num_item - len(k)) + k for k in table_binary]
 
 
@@ -165,8 +104,6 @@ def brute_force_algo(num_item, invest_max):
 
 
 start_time = time.time()
-for i in range(11):
-    print(action_benefit(i))
-brute_force_algo(12, 500)
+brute_force_algo(4, 100)
 interval = time.time() - start_time
 print_time(interval)
