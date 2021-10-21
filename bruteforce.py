@@ -125,21 +125,24 @@ def display_optimal_solution(optimal_solution, invest_max):
     """
     optimal_actions = []
     optimal_costs = []
+    optimal_benefits = []
     total_cost = 0
     total_benefit = 0
-    for i in range(len(optimal_solution)):
+    for i in range(len(optimal_solution["optimal_combination"])):
         if optimal_solution["optimal_combination"][i] == "1":
             optimal_actions.append(action_number(i))
             optimal_costs.append(action_cost(i))
+            optimal_benefits.append(round(action_benefit(i),2))
             total_cost += action_cost(i)
             total_benefit += round(action_benefit(i), 2)
     print(
-        "The list of actions to buy to maximize benefit with a limit "
+        "\nThe list of actions to buy to maximize benefit with a limit "
         + "of {} € spent is {}".format(invest_max, optimal_actions)
     )
     print("The cost for each action is {}".format(optimal_costs))
+    print("The benefice after 2 years for each action is {} €\n".format(optimal_benefits))
     print("The total cost is {} €".format(total_cost))
-    print("The total benefit is {} €".format(round(total_benefit, 2)))
+    print("The total benefit is {} €\n".format(round(total_benefit, 2)))
 
 
 def brute_force_algo(num_item, invest_max):
@@ -162,6 +165,8 @@ def brute_force_algo(num_item, invest_max):
 
 
 start_time = time.time()
-brute_force_algo(20, 200)
+for i in range(11):
+    print(action_benefit(i))
+brute_force_algo(12, 500)
 interval = time.time() - start_time
 print_time(interval)
