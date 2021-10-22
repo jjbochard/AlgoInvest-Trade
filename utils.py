@@ -1,5 +1,6 @@
+import csv
 import json
-import time
+
 
 def print_time(raw_interval):
     """
@@ -61,9 +62,23 @@ def action_number(action):
         data = json.load(f)
         return data["actions"][action]["action_number"]
 
+
 def list_actions():
     with open(
         "actions.json",
     ) as f:
         data = json.load(f)
         return data["actions"]
+
+
+def csv_to_list(file_name):
+    with open(file_name, newline="") as f:
+        reader = csv.reader(f)
+        raw_data = list(reader)
+    raw_data.pop(0)
+    return [{"price": d[1], "profit": d[2]} for d in raw_data]
+
+
+data = csv_to_list("dataset1.csv")
+
+print(data)

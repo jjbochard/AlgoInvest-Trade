@@ -1,5 +1,7 @@
-from utils import action_cost, action_benefit, action_number, print_time
 import time
+
+from utils import action_benefit, action_cost, action_number, print_time
+
 
 def get_binary_combination(num_item):
     """
@@ -9,7 +11,6 @@ def get_binary_combination(num_item):
     """
     number_possibilities = [i for i in range(2 ** num_item)]
     table_binary = [bin(i)[2:] for i in number_possibilities]
-    print(table_binary)
     return ["0" * (num_item - len(k)) + k for k in table_binary]
 
 
@@ -71,15 +72,13 @@ def display_optimal_solution(optimal_solution, invest_max):
         if optimal_solution["optimal_combination"][i] == "1":
             optimal_actions.append(action_number(i))
             optimal_costs.append(action_cost(i))
-            optimal_benefits.append(round(action_benefit(i),2))
+            optimal_benefits.append(round(action_benefit(i), 2))
             total_cost += action_cost(i)
             total_benefit += round(action_benefit(i), 2)
     print(
         "\nThe list of actions to buy to maximize benefit with a limit "
         + "of {} € spent is {}".format(invest_max, optimal_actions)
     )
-    print("The cost for each action is {}".format(optimal_costs))
-    print("The benefice after 2 years for each action is {} €\n".format(optimal_benefits))
     print("The total cost is {} €".format(total_cost))
     print("The total benefit is {} €\n".format(round(total_benefit, 2)))
 
@@ -87,7 +86,7 @@ def display_optimal_solution(optimal_solution, invest_max):
 def brute_force_algo(num_item, invest_max):
     """
     Calculate and display the optimal solution for a problem of maximization
-    and minimization of 2 variables
+    of 1 variable with an other one which is limiting
 
     Args:
         num_item (int): the number of item use to make combinations
@@ -104,6 +103,6 @@ def brute_force_algo(num_item, invest_max):
 
 
 start_time = time.time()
-brute_force_algo(4, 100)
+brute_force_algo(20, 500)
 interval = time.time() - start_time
 print_time(interval)
