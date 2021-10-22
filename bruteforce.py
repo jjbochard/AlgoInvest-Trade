@@ -1,6 +1,6 @@
 import time
 
-from utils import action_benefit, action_cost, action_number, print_time
+from utils import action_cost, action_number, action_profit, print_time
 
 
 def get_binary_combination(num_item):
@@ -16,7 +16,7 @@ def get_binary_combination(num_item):
 
 def get_good_combinations(num_item, invest_max, binary_combination):
     """
-    Return a list a combinations wich respect the constraint of invest_max
+    Return a list a combinations which respect the constraint of invest_max
     Args:
         num_item (int): the number of item use to make combinations
         invest_max (int): the number each combination cost has not to exceed
@@ -25,33 +25,32 @@ def get_good_combinations(num_item, invest_max, binary_combination):
     good_combinations = []
     for combination in binary_combination:
         cost_combination = 0
-        benefit_combination = 0
+        profit_combination = 0
         for i in range(num_item):
             if combination[i] == "1":
                 cost_combination += action_cost(i)
-                benefit_combination += action_benefit(i)
+                profit_combination += action_profit(i)
         print(combination)
         if cost_combination <= invest_max:
-            good_combinations.append([combination, benefit_combination])
+            good_combinations.append([combination, profit_combination])
     return good_combinations
 
 
 def get_optimal_solution(good_combinations):
     """
-    Return a dictionary which contains the optimal combination and optimal
-    benefit
+    Return a dictionary which contains the optimal combination and optimal profit
     Args:
         good_combination (list): list of combinations in binary number
     """
 
     optimal_solution = {
         "optimal_combination": good_combinations[0][0],
-        "optimal_benefit": good_combinations[0][1],
+        "optimal_profit": good_combinations[0][1],
     }
     for combination in good_combinations:
-        if combination[1] > optimal_solution["optimal_benefit"]:
+        if combination[1] > optimal_solution["optimal_profit"]:
             optimal_solution["optimal_combination"] = combination[0]
-            optimal_solution["optimal_benefit"] = combination[1]
+            optimal_solution["optimal_profit"] = combination[1]
     return optimal_solution
 
 
@@ -65,28 +64,28 @@ def display_optimal_solution(optimal_solution, invest_max):
     """
     optimal_actions = []
     optimal_costs = []
-    optimal_benefits = []
+    optimal_profits = []
     total_cost = 0
-    total_benefit = 0
+    total_profit = 0
     for i in range(len(optimal_solution["optimal_combination"])):
         if optimal_solution["optimal_combination"][i] == "1":
             optimal_actions.append(action_number(i))
             optimal_costs.append(action_cost(i))
-            optimal_benefits.append(round(action_benefit(i), 2))
+            optimal_profits.append(round(action_profit(i), 2))
             total_cost += action_cost(i)
-            total_benefit += round(action_benefit(i), 2)
+            total_profit += round(action_profit(i), 2)
     print(
-        "\nThe list of actions to buy to maximize benefit with a limit "
+        "\nThe list of actions to buy to maximize profit with a limit "
         + "of {} € spent is {}".format(invest_max, optimal_actions)
     )
     print("The total cost is {} €".format(total_cost))
-    print("The total benefit is {} €\n".format(round(total_benefit, 2)))
+    print("The total profit is {} €\n".format(round(total_profit, 2)))
 
 
 def brute_force_algo(num_item, invest_max):
     """
-    Calculate and display the optimal solution for a problem of maximization
-    of 1 variable with an other one which is limiting
+    Calculate and display the optimal solution for a problem of maximization of
+    1 variable with an other one which is limiting
 
     Args:
         num_item (int): the number of item use to make combinations

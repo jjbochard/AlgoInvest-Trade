@@ -3,102 +3,122 @@
         {
             "action_number": 1,
             "cost_per_action": 20,
-            "2year_benefit": 0.05
+            "2year_benefit": 0.05,
+            "profit": 1
         },
         {
             "action_number": 2,
             "cost_per_action": 30,
-            "2year_benefit": 0.10
+            "2year_benefit": 0.10,
+            "profit": 3
         },
         {
             "action_number": 3,
             "cost_per_action": 50,
-            "2year_benefit": 0.15
+            "2year_benefit": 0.15,
+            "profit": 7.5
         },
         {
             "action_number": 4,
             "cost_per_action": 70,
-            "2year_benefit": 0.20
+            "2year_benefit": 0.20,
+            "profit": 14
         },
         {
             "action_number": 5,
             "cost_per_action": 60,
-            "2year_benefit": 0.17
+            "2year_benefit": 0.17,
+            "profit": 10.2
         },
         {
             "action_number": 6,
             "cost_per_action": 80,
-            "2year_benefit": 0.25
+            "2year_benefit": 0.25,
+            "profit": 20
         },
         {
             "action_number": 7,
             "cost_per_action": 22,
-            "2year_benefit": 0.07
+            "2year_benefit": 0.07,
+            "profit": 1.54
         },
         {
             "action_number": 8,
             "cost_per_action": 26,
-            "2year_benefit": 0.11
+            "2year_benefit": 0.11,
+            "profit": 2.86
         },
         {
             "action_number": 9,
             "cost_per_action": 48,
-            "2year_benefit": 0.13
+            "2year_benefit": 0.13,
+            "profit": 6.24
         },
         {
             "action_number": 10,
             "cost_per_action": 34,
-            "2year_benefit": 0.27
+            "2year_benefit": 0.27,
+            "profit": 9.18
         },
         {
             "action_number": 11,
             "cost_per_action": 42,
-            "2year_benefit": 0.17
+            "2year_benefit": 0.17,
+            "profit": 7.14
         },
         {
             "action_number": 12,
             "cost_per_action": 110,
-            "2year_benefit": 0.09
+            "2year_benefit": 0.09,
+            "profit": 9.9
         },
         {
             "action_number": 13,
             "cost_per_action": 38,
-            "2year_benefit": 0.23
+            "2year_benefit": 0.23,
+            "profit": 8.74
         },
         {
             "action_number": 14,
             "cost_per_action": 14,
-            "2year_benefit": 0.01
+            "2year_benefit": 0.01,
+            "profit": 0.14
         },
         {
             "action_number": 15,
             "cost_per_action": 18,
-            "2year_benefit": 0.03
+            "2year_benefit": 0.03,
+            "profit": 0.54
         },
         {
             "action_number": 16,
             "cost_per_action": 8,
-            "2year_benefit": 0.08
+            "2year_benefit": 0.08,
+            "profit": 0.64
         },
         {
             "action_number": 17,
             "cost_per_action": 4,
-            "2year_benefit": 0.12
+            "2year_benefit": 0.12,
+            "profit": 0.48
         },
         {
             "action_number": 18,
             "cost_per_action": 10,
-            "2year_benefit": 0.14
+            "2year_benefit": 0.14,
+            "profit": 1.40
         },
         {
             "action_number": 19,
             "cost_per_action": 24,
-            "2year_benefit": 0.21
+            "2year_benefit": 0.21,
+            "profit": 5.04
         },
         {
             "action_number": 20,
             "cost_per_action": 114,
-            "2year_benefit": 0.18
+            "2year_benefit": 0.18,
+            "profit": 20.52
         }
     ]
 }

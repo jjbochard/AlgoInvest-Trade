@@ -20,10 +20,9 @@ def print_time(raw_interval):
     )
 
 
-def action_benefit(action):
+def action_profit(action):
     """
-    Return the value of the cost * 2years_benefit of a choosen action from
-    actions.json
+    Return the value of the profit of a choosen action from actions.json
     Args:
         action (int): n represent action_number n+1
     """
@@ -31,10 +30,7 @@ def action_benefit(action):
         "actions.json",
     ) as f:
         data = json.load(f)
-        return (
-            data["actions"][action]["cost_per_action"]
-            * data["actions"][action]["2year_benefit"]
-        )
+        return data["actions"][action]["profit"]
 
 
 def action_cost(action):
@@ -76,9 +72,4 @@ def csv_to_list(file_name):
         reader = csv.reader(f)
         raw_data = list(reader)
     raw_data.pop(0)
-    return [{"price": d[1], "profit": d[2]} for d in raw_data]
-
-
-data = csv_to_list("dataset1.csv")
-
-print(data)
+    return [{"price": float(d[1]), "profit": float(d[2])} for d in raw_data]
