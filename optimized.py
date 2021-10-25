@@ -1,4 +1,14 @@
-from utils import action_cost, action_number, action_profit, csv_to_list, list_actions
+import time
+
+from utils import (
+    csv_to_list,
+    get_action_cost,
+    get_action_name,
+    get_action_profit,
+    get_optimal_cost,
+    get_optimal_profit,
+    print_time,
+)
 
 
 def build_matrice(invest_max, actions):
@@ -9,9 +19,10 @@ def build_matrice(invest_max, actions):
     matrice = [[0 for x in range(invest_max + 1)] for x in range(len(actions) + 1)]
     for i in range(1, len(actions) + 1):
         for invest in range(1, invest_max + 1):
-            if action_cost(i - 1) <= invest:
+            if get_action_cost(i - 1, actions) <= invest:
                 matrice[i][invest] = max(
-                    action_profit(i - 1) + matrice[i - 1][invest - action_cost(i - 1)],
+                    get_action_profit(i - 1, actions)
+                    + matrice[i - 1][invest - get_action_cost(i - 1, actions)],
                     matrice[i - 1][invest],
                 )
             else:
@@ -24,18 +35,24 @@ def calculate_optimal_solution(invest_max, actions, matrice, invest):
     n = len(actions)
     optimal_actions = []
     while invest >= 0 and n >= 0:
-        b = action_profit(n - 1)
-        c = action_cost(n - 1)
+        b = get_action_profit(n - 1, actions)
+        c = get_action_cost(n - 1, actions)
         if matrice[n][i] == matrice[n - 1][i - c] + b:
-            optimal_actions.append(action_number(n - 1))
+            optimal_actions.append(
+                [
+                    get_action_name(n - 1, actions),
+                    get_action_cost(n - 1, actions),
+                    get_action_profit(n - 1, actions),
+                ]
+            )
             i -= c
 
         n -= 1
+    print(optimal_actions)
+    optimal_profit = get_optimal_profit(optimal_actions)
+    total_cost = get_optimal_cost(optimal_actions)
 
-    optimal_profit = [action_profit(action - 1) for action in optimal_actions]
-    total_cost = sum(action_cost(action - 1) for action in optimal_actions)
-
-    return optimal_actions, optimal_profit, total_cost
+    return optimal_profit, total_cost
 
 
 def optimized_algo(invest_max, actions):
@@ -48,19 +65,21 @@ def optimized_algo(invest_max, actions):
         actions (list): a list with actions' informations
     """
     (matrice, invest) = build_matrice(invest_max, actions)
-    (optimal_actions, optimal_profit, total_cost) = calculate_optimal_solution(
-        invest_max, actions, matrice, invest
-    )
-    print(
-        "\nThe list of actions to buy to maximize profit with a limit "
-        + "of {} € spent is {}".format(invest_max, sorted(optimal_actions))
-    )
+    (
+        optimal_profit,
+        total_cost,
+    ) = calculate_optimal_solution(invest_max, actions, matrice, invest)
     print("The total cost is {} €".format(total_cost))
-    print("The total profit is {} €\n".format(sum(optimal_profit)))
+    print("The total profit is {} €\n".format(optimal_profit))
 
 
-data = list_actions()
+data = csv_to_list("actions.csv")
 data1_sienna = csv_to_list("dataset1.csv")
-
+data2_sienna = csv_to_list("dataset2.csv")
+start_time = time.time()
 
 optimized_algo(500, data)
+# optimized_algo(50000, data1_sienna)
+# optimized_algo(50000, data2_sienna)
+interval = time.time() - start_time
+print_time(interval, "optimized")
