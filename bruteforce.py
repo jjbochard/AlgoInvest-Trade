@@ -104,4 +104,4 @@ def brute_force_algo(num_item, invest_max):
 start_time = time.time()
 brute_force_algo(20, 500)
 interval = time.time() - start_time
-print_time(interval)
+print_time(interval, "brute force")
