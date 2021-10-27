@@ -28,9 +28,9 @@ def get_action_profit(action, dict):
         action (int): n represent action_number n+1
     """
     if len(dict) > 20:
-        return round(dict[action]["profit"] * 100)
+        return dict[action]["profit"]*dict[action]["cost_per_action"]
     else:
-        return dict[action]["profit"]
+        return dict[action]["profit"]*dict[action]["cost_per_action"]/100
 
 
 def get_action_cost(action, dict):
