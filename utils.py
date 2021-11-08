@@ -23,52 +23,60 @@ def print_time(raw_interval, algo_name):
 
 def get_action_profit(action, dict):
     """
-    Return the value of the profit of a choosen action from actions.json
+    Return the value of the profit of a choosen action from a dictionnary
     Args:
         action (int): n represent action_number n+1
+        dict (dict): the dictionnary where the actions are choosen
     """
-    if len(dict) > 20:
-        return dict[action]["profit"]*dict[action]["cost_per_action"]
-    else:
-        return dict[action]["profit"]*dict[action]["cost_per_action"]/100
+    return dict[action]["profit"] * dict[action]["cost_per_action"] / 100
 
 
 def get_action_cost(action, dict):
     """
-    Return the cost of a choosen action from actions.json
+    Return the cost of a choosen action from a dictionnary
     Args:
         action (int): n represent action_number n+1
+        dict (dict): the dictionnary where the actions are choosen
+
     """
-    if len(dict) > 20:
-        return round(dict[action]["cost_per_action"] * 100)
-    else:
-        return round(dict[action]["cost_per_action"])
+    return round(dict[action]["cost_per_action"])
 
 
 def get_action_name(action, dict):
     """
-    Return the name of a choosen action from actions.csv
+    Return the name of a choosen action from a dictionnary
     Args:
         action (int): n represent action_number n+1
+        dict (dict): the dictionnary where the actions are choosen
+
     """
     return dict[action]["action_name"]
 
 
 def get_optimal_profit(optimal_actions):
-    if optimal_actions[0][0].startswith("Share"):
-        return round(sum((action[2] / 100) for action in optimal_actions), 2)
-    else:
-        return round(sum((action[2]) for action in optimal_actions), 2)
+    """
+    Return the sum of actions profit from a list of actions
+    Args:
+        optimal_actions (list): a list of actions
+    """
+    return round(sum((action[2]) for action in optimal_actions), 2)
 
 
 def get_optimal_cost(optimal_actions):
-    if optimal_actions[0][0].startswith("Share"):
-        return round(sum((action[1] / 100) for action in optimal_actions), 2)
-    else:
-        return round(sum((action[1]) for action in optimal_actions), 2)
+    """
+    Return the sum of actions cost from a list of actions
+    Args:
+        optimal_actions (list): a list of actions
+    """
+    return round(sum((action[1]) for action in optimal_actions), 2)
 
 
 def csv_to_list(file_name):
+    """
+    Return a list of dictionnary with actions informations from a csv file
+    Args:
+        file_name (str): the csv file name
+    """
     with open(file_name, newline="") as f:
         reader = csv.reader(f)
         raw_data = list(reader)

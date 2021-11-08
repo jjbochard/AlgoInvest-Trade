@@ -1,6 +1,12 @@
 import time
 
-from utils import csv_to_list, get_action_cost, get_action_name, get_action_profit, print_time
+from utils import (
+    csv_to_list,
+    get_action_cost,
+    get_action_name,
+    get_action_profit,
+    print_time,
+)
 
 
 def get_binary_combination(num_item):
@@ -21,6 +27,7 @@ def get_good_combinations(num_item, invest_max, binary_combination, actions):
         num_item (int): the number of item use to make combinations
         invest_max (int): the number each combination cost has not to exceed
         binary_combination (list): list of combination in binary number
+        actions (list): list of actions to optimize
     """
     good_combinations = []
     for combination in binary_combination:
@@ -28,9 +35,8 @@ def get_good_combinations(num_item, invest_max, binary_combination, actions):
         profit_combination = 0
         for i in range(num_item):
             if combination[i] == "1":
-                cost_combination += get_action_cost(i, data)
-                profit_combination += get_action_profit(i, data)
-        print(combination)
+                cost_combination += get_action_cost(i, actions)
+                profit_combination += get_action_profit(i, actions)
         if cost_combination <= invest_max:
             good_combinations.append([combination, profit_combination])
     return good_combinations
@@ -61,6 +67,7 @@ def display_optimal_solution(optimal_solution, invest_max, actions):
         optimal_solution (dict): dictionnary which contains the best solution
         information
         invest_max (int): the number each combination cost has not to exceed
+        actions (list): list of actions to optimize
     """
     optimal_actions = []
     optimal_costs = []
@@ -69,11 +76,11 @@ def display_optimal_solution(optimal_solution, invest_max, actions):
     total_profit = 0
     for i in range(len(optimal_solution["optimal_combination"])):
         if optimal_solution["optimal_combination"][i] == "1":
-            optimal_actions.append(get_action_name(i, data))
-            optimal_costs.append(get_action_cost(i, data))
-            optimal_profits.append(round(get_action_profit(i, data), 2))
-            total_cost += get_action_cost(i, data)
-            total_profit += round(get_action_profit(i, data), 2)
+            optimal_actions.append(get_action_name(i, actions))
+            optimal_costs.append(get_action_cost(i, actions))
+            optimal_profits.append(round(get_action_profit(i, actions), 2))
+            total_cost += get_action_cost(i, actions)
+            total_profit += round(get_action_profit(i, actions), 2)
     print(
         "\nThe list of actions to buy to maximize profit with a limit "
         + "of {} € spent is {}".format(invest_max, optimal_actions)
@@ -82,7 +89,7 @@ def display_optimal_solution(optimal_solution, invest_max, actions):
     print("The total profit is {} €\n".format(round(total_profit, 2)))
 
 
-def brute_force_algo(num_item, invest_max):
+def brute_force_algo(num_item, invest_max, actions):
     """
     Calculate and display the optimal solution for a problem of maximization of
     1 variable with an other one which is limiting
@@ -90,20 +97,18 @@ def brute_force_algo(num_item, invest_max):
     Args:
         num_item (int): the number of item use to make combinations
         invest_max (int): the number each combination cost has not to exceed
+        actions (list): list of actions to optimize
     """
     binary_combination = get_binary_combination(num_item)
     good_combinations = get_good_combinations(
-        num_item,
-        invest_max,
-        binary_combination,
-        data
+        num_item, invest_max, binary_combination, actions
     )
     optimal_solution = get_optimal_solution(good_combinations)
-    display_optimal_solution(optimal_solution, invest_max, data)
+    display_optimal_solution(optimal_solution, invest_max, actions)
 
 
 data = csv_to_list("actions.csv")
 start_time = time.time()
-brute_force_algo(20, 500)
+brute_force_algo(20, 500, data)
 interval = time.time() - start_time
 print_time(interval, "brute force")
