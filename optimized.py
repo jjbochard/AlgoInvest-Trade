@@ -13,31 +13,50 @@ from utils import (
 
 def build_matrice(invest_max, actions):
     """
-    Build a matrice with len(actions) + 1 rows and range(invest_max + 1)
-    columns
+    Build a matrice with len(actions) + 1 rows and range(invest_max + 1) columns
+    Args:
+        invest_max (int): the number each combination cost has not to exceed
+        actions (list): list of actions to optimize
     """
+    # A matrice of len(actions) +1 rows and range (invest_max +1) is build
     matrice = [[0 for x in range(invest_max + 1)] for x in range(len(actions) + 1)]
+    # For every rows (actions cost) in the matrice (except the first which is 0)
     for i in range(1, len(actions) + 1):
+        # For every columns (price) in the matrice (except the first which is 0)
         for invest in range(1, invest_max + 1):
+            # If the cost of the current action is inferior to the current price
             if get_action_cost(i - 1, actions) <= invest:
+                # We keep the max between the profit of the current action
+                # and the profit of the action i-1 with a cost of invest - the cost of the current action
                 matrice[i][invest] = max(
                     get_action_profit(i - 1, actions)
                     + matrice[i - 1][invest - get_action_cost(i - 1, actions)],
                     matrice[i - 1][invest],
                 )
             else:
+                # Else we keep the profit of the previous action
                 matrice[i][invest] = matrice[i - 1][invest]
     return matrice, invest
 
 
-def calculate_optimal_solution(invest_max, actions, matrice, invest):
-    i = invest_max
+def calculate_optimal_solution(actions, matrice, invest):
+    """
+    Return the optimal profit and the total cost from a matrice
+    Args:
+        actions (list): list of actions to optimize
+        matrice (matrice): matrice of the action cost by invest
+        invest (int): the current invest we check
+    """
     n = len(actions)
     optimal_actions = []
     while invest >= 0 and n >= 0:
         b = get_action_profit(n - 1, actions)
         c = get_action_cost(n - 1, actions)
-        if matrice[n][i] == matrice[n - 1][i - c] + b:
+        # If the profit for an action n at a price invest is equal to
+        # the profit of the action n-1 at a price invest - the price of the action n
+        # + the profit of the action n,
+        # that meens that we keep the action n
+        if matrice[n][invest] == matrice[n - 1][invest - c] + b:
             optimal_actions.append(
                 [
                     get_action_name(n - 1, actions),
@@ -45,10 +64,9 @@ def calculate_optimal_solution(invest_max, actions, matrice, invest):
                     get_action_profit(n - 1, actions),
                 ]
             )
-            i -= c
+            invest -= c
 
         n -= 1
-    print(optimal_actions)
     optimal_profit = get_optimal_profit(optimal_actions)
     total_cost = get_optimal_cost(optimal_actions)
 
@@ -57,29 +75,25 @@ def calculate_optimal_solution(invest_max, actions, matrice, invest):
 
 def optimized_algo(invest_max, actions):
     """
-    Calculate and display the optimal solution for a problem of maximization
-    of 1 variable with an other one which is limiting
+    Calculate and display the optimal solution for a problem of maximization of 1 variable
+    with an other one which is limiting
 
     Args:
         invest_max (int): the number each combination cost has not to exceed
-        actions (list): a list with actions' informations
+        actions (list): a list with actions informations
     """
     (matrice, invest) = build_matrice(invest_max, actions)
     (
         optimal_profit,
         total_cost,
-    ) = calculate_optimal_solution(invest_max, actions, matrice, invest)
+    ) = calculate_optimal_solution(actions, matrice, invest)
     print("The total cost is {} €".format(total_cost))
     print("The total profit is {} €\n".format(optimal_profit))
 
 
 data = csv_to_list("actions.csv")
-data1_sienna = csv_to_list("dataset1.csv")
-data2_sienna = csv_to_list("dataset2.csv")
 start_time = time.time()
 
 optimized_algo(500, data)
-# optimized_algo(50000, data1_sienna)
-# optimized_algo(50000, data2_sienna)
 interval = time.time() - start_time
 print_time(interval, "optimized")

@@ -93,7 +93,6 @@ def brute_force_algo(num_item, invest_max, actions):
     """
     Calculate and display the optimal solution for a problem of maximization of
     1 variable with an other one which is limiting
-
     Args:
         num_item (int): the number of item use to make combinations
         invest_max (int): the number each combination cost has not to exceed
