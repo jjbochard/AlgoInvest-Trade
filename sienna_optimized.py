@@ -4,11 +4,11 @@ from sys import argv
 
 from utils import (
     csv_to_list,
-    get_action_cost,
+    get_sienna_action_cost,
     get_action_name,
-    get_action_profit,
-    get_optimal_cost,
-    get_optimal_profit,
+    get_sienna_action_profit,
+    get_sienna_optimal_cost,
+    get_sienna_optimal_profit,
     print_time,
 )
 
@@ -27,12 +27,12 @@ def build_matrice(invest_max, actions):
         # For every columns (price) in the matrice (except the first which is 0)
         for invest in range(1, invest_max + 1):
             # If the cost of the current action is inferior to the current price
-            if get_action_cost(i - 1, actions) <= invest:
+            if get_sienna_action_cost(i - 1, actions) <= invest:
                 # We keep the max between the profit of the current action
                 # and the profit of the action i-1 with a cost of invest - the cost of the current action
                 matrice[i][invest] = max(
-                    get_action_profit(i - 1, actions)
-                    + matrice[i - 1][invest - get_action_cost(i - 1, actions)],
+                    get_sienna_action_profit(i - 1, actions)
+                    + matrice[i - 1][invest - get_sienna_action_cost(i - 1, actions)],
                     matrice[i - 1][invest],
                 )
             else:
@@ -52,8 +52,8 @@ def calculate_optimal_solution(actions, matrice, invest):
     n = len(actions)
     optimal_actions = []
     while invest >= 0 and n >= 0:
-        b = get_action_profit(n - 1, actions)
-        c = get_action_cost(n - 1, actions)
+        b = get_sienna_action_profit(n - 1, actions)
+        c = get_sienna_action_cost(n - 1, actions)
         # If the profit for an action n at a price invest is equal to
         # the profit of the action n-1 at a price invest - the price of the action n
         # + the profit of the action n,
@@ -62,15 +62,15 @@ def calculate_optimal_solution(actions, matrice, invest):
             optimal_actions.append(
                 [
                     get_action_name(n - 1, actions),
-                    get_action_cost(n - 1, actions),
-                    get_action_profit(n - 1, actions),
+                    get_sienna_action_cost(n - 1, actions),
+                    get_sienna_action_profit(n - 1, actions),
                 ]
             )
             invest -= c
 
         n -= 1
-    optimal_profit = get_optimal_profit(optimal_actions)
-    total_cost = get_optimal_cost(optimal_actions)
+    optimal_profit = get_sienna_optimal_profit(optimal_actions)
+    total_cost = get_sienna_optimal_cost(optimal_actions)
 
     return optimal_profit, total_cost
 
@@ -95,7 +95,7 @@ def optimized_algo(invest_max, actions):
 
 start_time = time.time()
 
-optimized, invest_max, actions = argv
+sienna_optimized, invest_max, actions = argv
 invest_max = int(argv[1])
 actions = csv_to_list(argv[2])
 

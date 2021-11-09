@@ -1,5 +1,7 @@
 import time
 
+from sys import argv
+
 from utils import (
     csv_to_list,
     get_action_cost,
@@ -106,8 +108,14 @@ def brute_force_algo(num_item, invest_max, actions):
     display_optimal_solution(optimal_solution, invest_max, actions)
 
 
-data = csv_to_list("actions.csv")
 start_time = time.time()
-brute_force_algo(20, 500, data)
+
+bruteforce, num_item, invest_max, actions = argv
+num_item = int(argv[1])
+invest_max = int(argv[2])
+actions = csv_to_list(argv[3])
+
+brute_force_algo(num_item, invest_max, actions)
+
 interval = time.time() - start_time
 print_time(interval, "brute force")
