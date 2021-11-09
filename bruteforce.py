@@ -82,7 +82,7 @@ def display_optimal_solution(optimal_solution, invest_max, actions):
             optimal_costs.append(get_action_cost(i, actions))
             optimal_profits.append(round(get_action_profit(i, actions), 2))
             total_cost += get_action_cost(i, actions)
-            total_profit += round(get_action_profit(i, actions), 2)
+            total_profit += round((get_action_profit(i, actions) / 100), 2)
     print(
         "\nThe list of actions to buy to maximize profit with a limit "
         + "of {} € spent is {}".format(invest_max, optimal_actions)
