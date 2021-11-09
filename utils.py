@@ -10,15 +10,24 @@ def print_time(raw_interval, algo_name):
     interval_in_min = raw_interval / 60
     extra_sec = round(interval_in_min % 1, 2)
     interval_in_sec = round(extra_sec * 60)
-    print(
-        "The "
-        + algo_name
-        + " solution has been found in "
-        + str(round(interval_in_min))
-        + " minutes et "
-        + str(interval_in_sec)
-        + " seconds."
-    )
+    if interval_in_min and interval_in_sec != 0:
+        print(
+            "The "
+            + algo_name
+            + " solution has been found in "
+            + str(round(interval_in_min))
+            + " minutes et "
+            + str(interval_in_sec)
+            + " seconds."
+        )
+    else:
+        print(
+            "The "
+            + algo_name
+            + " solution has been found in "
+            + str(round(raw_interval * 1000, 2))
+            + " milliseconds."
+        )
 
 
 def get_action_profit(action, dict):
