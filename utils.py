@@ -1,4 +1,5 @@
 import csv
+from math import trunc
 
 
 def print_time(raw_interval, algo_name):
@@ -15,8 +16,8 @@ def print_time(raw_interval, algo_name):
             "The "
             + algo_name
             + " solution has been found in "
-            + str(round(interval_in_min))
-            + " minutes et "
+            + str(trunc(interval_in_min))
+            + " minutes and "
             + str(interval_in_sec)
             + " seconds."
         )
@@ -31,6 +32,16 @@ def print_time(raw_interval, algo_name):
 
 
 def get_action_profit(action, dict):
+    """
+    Return the value of the profit of a choosen action from a dictionnary
+    Args:
+        action (int): n represent action_number n+1
+        dict (dict): the dictionnary where the actions are choosen
+    """
+    return dict[action - 1]["profit"] * dict[action - 1]["cost_per_action"]
+
+
+def get_bf_action_profit(action, dict):
     """
     Return the value of the profit of a choosen action from a dictionnary
     Args:
@@ -58,6 +69,17 @@ def get_action_cost(action, dict):
         dict (dict): the dictionnary where the actions are choosen
 
     """
+    return round(dict[action - 1]["cost_per_action"])
+
+
+def get_bf_action_cost(action, dict):
+    """
+    Return the cost of a choosen action from a dictionnary
+    Args:
+        action (int): n represent action_number n+1
+        dict (dict): the dictionnary where the actions are choosen
+
+    """
     return round(dict[action]["cost_per_action"])
 
 
@@ -73,6 +95,17 @@ def get_sienna_action_cost(action, dict):
 
 
 def get_action_name(action, dict):
+    """
+    Return the name of a choosen action from a dictionnary
+    Args:
+        action (int): n represent action_number n+1
+        dict (dict): the dictionnary where the actions are choosen
+
+    """
+    return dict[action - 1]["action_name"]
+
+
+def get_bf_action_name(action, dict):
     """
     Return the name of a choosen action from a dictionnary
     Args:
