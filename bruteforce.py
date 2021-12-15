@@ -3,9 +3,9 @@ from sys import argv
 
 from utils import (
     csv_to_list,
-    get_action_cost,
-    get_action_name,
-    get_action_profit,
+    get_bf_action_cost,
+    get_bf_action_name,
+    get_bf_action_profit,
     print_time,
 )
 
@@ -36,8 +36,8 @@ def get_good_combinations(num_item, invest_max, binary_combination, actions):
         profit_combination = 0
         for i in range(num_item):
             if combination[i] == "1":
-                cost_combination += get_action_cost(i, actions)
-                profit_combination += get_action_profit(i, actions)
+                cost_combination += get_bf_action_cost(i, actions)
+                profit_combination += get_bf_action_profit(i, actions)
         if cost_combination <= invest_max:
             good_combinations.append([combination, profit_combination])
     return good_combinations
@@ -77,11 +77,11 @@ def display_optimal_solution(optimal_solution, invest_max, actions):
     total_profit = 0
     for i in range(len(optimal_solution["optimal_combination"])):
         if optimal_solution["optimal_combination"][i] == "1":
-            optimal_actions.append(get_action_name(i, actions))
-            optimal_costs.append(get_action_cost(i, actions))
-            optimal_profits.append(round(get_action_profit(i, actions), 2))
-            total_cost += get_action_cost(i, actions)
-            total_profit += round((get_action_profit(i, actions) / 100), 2)
+            optimal_actions.append(get_bf_action_name(i, actions))
+            optimal_costs.append(get_bf_action_cost(i, actions))
+            optimal_profits.append(round(get_bf_action_profit(i, actions), 2))
+            total_cost += get_bf_action_cost(i, actions)
+            total_profit += round((get_bf_action_profit(i, actions) / 100), 2)
     print(
         "\nThe list of actions to buy to maximize profit with a limit "
         + "of {} € spent is {}".format(invest_max, optimal_actions)

@@ -27,12 +27,12 @@ def build_matrice(invest_max, actions):
         # For every columns (price) in the matrice (except the first which is 0)
         for invest in range(1, invest_max + 1):
             # If the cost of the current action is inferior to the current price
-            if get_action_cost(i - 1, actions) <= invest:
+            if get_action_cost(i, actions) <= invest:
                 # We keep the max between the profit of the current action
                 # and the profit of the action i-1 with a cost of invest - the cost of the current action
                 matrice[i][invest] = max(
-                    get_action_profit(i - 1, actions)
-                    + matrice[i - 1][invest - get_action_cost(i - 1, actions)],
+                    get_action_profit(i, actions)
+                    + matrice[i - 1][invest - get_action_cost(i, actions)],
                     matrice[i - 1][invest],
                 )
             else:
@@ -52,8 +52,8 @@ def calculate_optimal_solution(actions, matrice, invest):
     n = len(actions)
     optimal_actions = []
     while invest >= 0 and n >= 0:
-        b = get_action_profit(n - 1, actions)
-        c = get_action_cost(n - 1, actions)
+        b = get_action_profit(n, actions)
+        c = get_action_cost(n, actions)
         # If the profit for an action n at a price invest is equal to
         # the profit of the action n-1 at a price invest - the price of the action n
         # + the profit of the action n,
@@ -61,9 +61,9 @@ def calculate_optimal_solution(actions, matrice, invest):
         if matrice[n][invest] == matrice[n - 1][invest - c] + b:
             optimal_actions.append(
                 [
-                    get_action_name(n - 1, actions),
-                    get_action_cost(n - 1, actions),
-                    get_action_profit(n - 1, actions),
+                    get_action_name(n, actions),
+                    get_action_cost(n, actions),
+                    get_action_profit(n, actions),
                 ]
             )
             invest -= c
