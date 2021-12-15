@@ -1,11 +1,10 @@
 import time
-
 from sys import argv
 
 from utils import (
     csv_to_list,
-    get_sienna_action_cost,
     get_action_name,
+    get_sienna_action_cost,
     get_sienna_action_profit,
     get_sienna_optimal_cost,
     get_sienna_optimal_profit,
@@ -93,12 +92,11 @@ def optimized_algo(invest_max, actions):
     print("The total profit is {} €\n".format(optimal_profit))
 
 
-start_time = time.time()
-
 sienna_optimized, invest_max, actions = argv
 invest_max = int(argv[1])
 actions = csv_to_list(argv[2])
 
+start_time = time.time()
 optimized_algo(invest_max, actions)
 
 interval = time.time() - start_time
